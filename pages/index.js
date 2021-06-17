@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+export default function Home({ exampleServerVar }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -10,11 +10,17 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <p className={styles.description}>
-          This is an example Next.js app powered by Layer0. Click a category above to get
-          started.
-        </p>
+        <p>NEXT_PUBLIC_EXAMPLE_VAR: {JSON.stringify(process.env.NEXT_PUBLIC_EXAMPLE_VAR)}</p>
+        <p>EXAMPLE_VAR: {JSON.stringify(exampleServerVar)}</p>
       </main>
     </div>
   )
+}
+
+export const getServerSideProps = (ctx) => {
+  return {
+    props: {
+      exampleServerVar: process.env.EXAMPLE_VAR
+    }
+  }
 }
